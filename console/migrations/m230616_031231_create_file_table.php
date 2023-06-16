@@ -15,9 +15,9 @@ class m230616_031231_create_file_table extends Migration
         $this->createTable('{{%file}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(100)->notNull(),
-            'path' => $this->string(255)->notNull(),
+            'path' => $this->string(255),
             'status' => $this->string(20)->notNull(),
-            'created_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer(),
             'created_by' => $this->integer(),
         ]);
 
