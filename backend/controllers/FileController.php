@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\File;
+use backend\resources\File;
 use yii\rest\ActiveController;
 
 class FileController extends ActiveController
