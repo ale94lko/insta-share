@@ -1,4 +1,6 @@
 <?php
+
+use yii\log\FileTarget;
 use yii\rest\UrlRule;
 use yii\web\JsonParser;
 
@@ -35,7 +37,7 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => \yii\log\FileTarget::class,
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -47,7 +49,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => UrlRule::class, 'controller' => ['file']],
+                ['class' => UrlRule::class, 'controller' => 'file'],
             ],
         ],
     ],
