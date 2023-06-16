@@ -37,7 +37,7 @@ class File extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'path', 'status', 'created_at'], 'required'],
+            [['name', 'status'], 'required'],
             [['created_at', 'created_by'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['path'], 'string', 'max' => 255],
@@ -52,10 +52,16 @@ class File extends ActiveRecord
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
+            [
+                'class' => TimestampBehavior::class,
+                'updatedAtAttribute' => false,
+            ],
             [
                 'class' => BlameableBehavior::class,
                 'updatedByAttribute' => false,
