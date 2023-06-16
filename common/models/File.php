@@ -28,7 +28,7 @@ class File extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'file';
+        return '{{%file}}';
     }
 
     /**
@@ -39,11 +39,11 @@ class File extends ActiveRecord
         return [
             [['name', 'status'], 'required'],
             [['created_at', 'created_by'], 'integer'],
-            [['name'], 'string', 'max' => 100],
-            [['path'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 20],
+            ['name', 'string', 'max' => 100],
+            ['path', 'string', 'max' => 255],
+            ['status', 'string', 'max' => 20],
             [
-                ['created_by'],
+                'created_by',
                 'exist',
                 'skipOnError' => true,
                 'targetClass' => User::class,
@@ -55,7 +55,7 @@ class File extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             [
@@ -72,7 +72,7 @@ class File extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -89,7 +89,7 @@ class File extends ActiveRecord
      *
      * @return ActiveQuery
      */
-    public function getCreatedBy()
+    public function getCreatedBy(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'created_by']);
     }
@@ -98,7 +98,7 @@ class File extends ActiveRecord
      * {@inheritdoc}
      * @return FileQuery the active query used by this AR class.
      */
-    public static function find()
+    public static function find(): FileQuery
     {
         return new FileQuery(get_called_class());
     }
