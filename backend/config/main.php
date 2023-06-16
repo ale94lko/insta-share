@@ -50,6 +50,11 @@ return [
             'showScriptName' => false,
             'rules' => [
                 ['class' => UrlRule::class, 'controller' => 'file'],
+                [
+                    'class' => UrlRule::class,
+                    'controller' => 'user',
+                    'except' => ['index', 'view'],
+                ],
             ],
         ],
     ],
