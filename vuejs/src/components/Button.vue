@@ -1,18 +1,15 @@
 <template>
-  <div id="app">
-  </div>
+  <button class="add-new-btn">New File</button>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {}
+  name: "Button"
 }
 </script>
 
 <style lang="scss" scoped>
-#app {
+.add-new-btn {
 
 }
 </style>

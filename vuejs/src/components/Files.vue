@@ -1,18 +1,16 @@
 <template>
-  <div id="app">
+  <div class="files-wrapper">
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {}
+  name: "Files"
 }
 </script>
 
 <style lang="scss" scoped>
-#app {
+.files-wrapper {
 
 }
 </style>
