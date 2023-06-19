@@ -1,15 +1,16 @@
 <template>
-  <button class="add-new-btn">New File</button>
+  <div class="files-wrapper">
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Button"
+  name: "FilesComponent"
 }
 </script>
 
 <style lang="scss" scoped>
-.add-new-btn {
+.files-wrapper {
 
 }
 </style>
