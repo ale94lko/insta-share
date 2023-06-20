@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\User;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\filters\Cors;
 use yii\rest\ActiveController;
 use yii\web\NotFoundHttpException;
 use yii\web\UnauthorizedHttpException;
@@ -16,7 +17,7 @@ class UserController extends ActiveController
     /**
      * {@inheritdoc}
      */
-    public function actions()
+    public function actions(): array
     {
         $actions = parent::actions();
         unset($actions['index']);
@@ -27,12 +28,11 @@ class UserController extends ActiveController
     /**
      * {@inheritdoc}
      */
-    public function verbs(): array
+    public function behaviors(): array
     {
-        $verbs = parent::verbs();
-        $verbs['login'] = ['POST'];
-
-        return $verbs;
+        return array_merge(parent::behaviors(), [
+            'cors' => Cors::class
+        ]);
     }
 
     /**
@@ -64,6 +64,8 @@ class UserController extends ActiveController
             throw new UnauthorizedHttpException("Invalid password for username: $username");
         }
 
-        return ['access_token' => $model->access_token];
+        return [
+            'access_token' => $model->access_token
+        ];
     }
 }
