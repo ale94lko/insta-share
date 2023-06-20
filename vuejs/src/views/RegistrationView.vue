@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import authService from '@/services/auth.service'
+
 export default {
   name: 'RegistrationView',
   data() {
@@ -32,8 +34,13 @@ export default {
     }
   },
   methods: {
-    register() {
-      console.log('Register', this.form)
+    async register() {
+      const { success, errors } = await authService.register(this.form)
+      if (success) {
+        this.$router.push({name: 'home'})
+      } else {
+        this.errors = errors
+      }
     },
   },
 }

@@ -17,6 +17,22 @@ const authService = {
       }
     }
   },
+  async register(formData) {
+    try {
+      const { status, data } = await httpClient.post('user/register', formData)
+      if (status === 200) {
+        this.setUser(data)
+        return {
+          success: true,
+        }
+      }
+    } catch (e) {
+      return {
+        success: false,
+        errors: e.response.data.errors,
+      }
+    }
+  },
   logout() {
     localStorage.removeItem('ACCESS_TOKEN')
     router.push({name: 'login'})
