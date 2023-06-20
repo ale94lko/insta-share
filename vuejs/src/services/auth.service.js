@@ -1,11 +1,9 @@
-import axios from 'axios'
-
+import router from '@/router'
+import httpClient from '@/services/http.service';
 const authService = {
-  user: null,
   async login(formData) {
     try {
-      const url = 'http://www.insta-share-api.com/user/login'
-      const { status, data } = await axios.post(url, formData)
+      const { status, data } = await httpClient.post('user/login', formData)
       if (status === 200) {
         this.setUser(data)
         return {
@@ -19,9 +17,16 @@ const authService = {
       }
     }
   },
+  logout() {
+    localStorage.removeItem('ACCESS_TOKEN')
+    router.push({name: 'login'})
+  },
   setUser(user) {
-    this.user = user
+    localStorage.setItem('USERNAME', user.username)
     localStorage.setItem('ACCESS_TOKEN', user.access_token)
+  },
+  getUsername() {
+    return localStorage.getItem('USERNAME')
   },
   isLoggedIn() {
     return !!localStorage.getItem('ACCESS_TOKEN')

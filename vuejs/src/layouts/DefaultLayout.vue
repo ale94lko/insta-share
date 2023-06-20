@@ -7,12 +7,18 @@
 
 <script>
 import NavbarLayout from '@/layouts/NavbarLayout.vue'
+import authService from '@/services/auth.service'
 
 export default {
   name: 'DefaultLayout',
   data() {
     return {
       user: {},
+    }
+  },
+  beforeMount() {
+    this.user = {
+      username: authService.getUsername()
     }
   },
   components: { NavbarLayout },
