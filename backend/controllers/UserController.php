@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\LoginForm;
 use common\models\User;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -36,36 +37,18 @@ class UserController extends ActiveController
     }
 
     /**
-     * @throws NotFoundHttpException
-     * @throws InvalidConfigException
-     * @throws UnauthorizedHttpException
      */
-    public function actionLogin(): array
+    public function actionLogin()
     {
-        $requestParams = Yii::$app->getRequest()->getBodyParams();
-        if (empty($requestParams)) {
-            $requestParams = Yii::$app->getRequest()->getQueryParams();
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post(), '') && $model->login()) {
+            return $model->getUser();
         }
 
-        $username = $requestParams['username'];
-        $password = $requestParams['password'];
-
-        $modelClass = $this->modelClass;
-        $model = $modelClass::findOne([
-            'username' => $username,
-            'status' => $modelClass::STATUS_ACTIVE
-        ]);
-
-        if (empty($model)) {
-            throw new NotFoundHttpException("User not found: $username");
-        }
-
-        if (!$model->validatePassword($password)) {
-            throw new UnauthorizedHttpException("Invalid password for username: $username");
-        }
+        Yii::$app->response->statusCode = 422;
 
         return [
-            'access_token' => $model->access_token
+            'errors' => $model->errors,
         ];
     }
 }
